@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository } from 'typeorm'; // Elimina la importación de FindOneOptions
 import { Producto } from '../producto/producto.entity';
+
 @Injectable()
 export class ProductoStoreService {
   constructor(
@@ -13,8 +14,8 @@ export class ProductoStoreService {
     return await this.productoRepository.find();
   }
 
-  async findOne(id: number): Promise<Producto> {
-    return await this.productoRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<Producto | undefined> {
+    return await this.productoRepository.findOne(id);
   }
 
   async create(producto: Producto): Promise<Producto> {
@@ -22,7 +23,7 @@ export class ProductoStoreService {
   }
 
   async update(id: number, producto: Producto): Promise<Producto> {
-    return await this.productoRepository.save({ ...producto, id: Number(id) });
+    return await this.productoRepository.save({ ...producto, id });
   }
 
   async remove(id: number): Promise<void> {

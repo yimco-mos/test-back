@@ -1,6 +1,5 @@
-// producto.entity.ts
-
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Tienda } from 'src/tienda/tienda.entity';
 
 @Entity()
 export class Producto {
@@ -11,5 +10,8 @@ export class Producto {
   nombre: string;
 
   @Column()
-  storeId: number;
+  storeId: number; // Mantienes el campo storeId en Producto
+
+  @ManyToOne(() => Tienda, (tienda) => tienda.productos)
+  tienda: Tienda;
 }

@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Producto } from 'src/producto/producto.entity';
 @Entity()
 export class Tienda {
   @PrimaryGeneratedColumn()
@@ -13,4 +13,7 @@ export class Tienda {
 
   @Column()
   direccion: string;
+
+  @OneToMany(() => Producto, (producto) => producto.tienda)
+  productos: Producto[]; // Esta propiedad representa la relación inversa
 }
